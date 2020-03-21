@@ -1,0 +1,153 @@
+@import url('https://fonts.googleapis.com/css?family=Rubik&display=swap');
+
+$colors : (
+    primary: #05386b,
+    primary-light: lighten(#05386b, 40%), 
+    primary-dark: darken(#05386b, 40%), 
+    secondary: #5cdb95
+);
+
+$padding:15px;
+$border:15px;
+
+@function color($color-name ){
+    @return map-get($map: $colors, $key: $color-name)
+}
+
+$desktop: 840px;
+
+@mixin desktop {
+    @media (min-width: #{$desktop}) {
+        @content;
+    }
+}
+
+body, html{
+    height: 100%;
+    font-family: Rubik;
+}
+
+body {
+    margin: 0%;
+    
+    #root{
+        background-color:  color(primary);
+        clip-path: polygon(100% 0, 100% 73%, 51% 100%, 0 100%, 0 0);
+        height: 100%;
+        width: 100%;
+        position: absolute;
+        z-index: -1;
+
+        @include desktop {
+            clip-path: polygon(0 0, 80% 0%, 63% 100%, 0% 100%);
+        }
+    }
+
+    header a {
+        color:color(secondary);
+        text-decoration: none;
+        padding: $padding;
+        font-size: 4em;
+        display: block;
+
+        @include desktop {
+            margin-left: calc(45px);
+        }
+    }
+}
+
+main{
+    padding:$padding;
+
+    @include desktop {
+        display: grid;
+        grid-template-columns: 60% auto;
+        grid-template-areas: "primary card";
+        padding:60px;
+    }
+    section#card{
+        background: #ffffff;
+        padding: 20px;
+        margin: 1em auto;
+        border-radius: $border;
+        box-shadow: 0 10px 30px rgba($color: #000000, $alpha: 0.2); 
+
+        @include desktop {
+            grid-area: card;
+            height: fit-content;
+            align-self: center;
+            margin: 8em 4em 0em 0em;             
+        }
+        
+        ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+
+            li {
+                margin-bottom: 10px;
+                display: flex;
+                align-items: flex-end;
+                span {
+                    position: absolute;
+                    width: 20px;
+                    height: 20px;
+                    background-color: color(primary-light);
+                    border-radius: 50%;
+                    margin-right: 10px;
+                }
+
+                strong {
+                    display: inline-block;
+                    margin-left: max(40px);
+                    margin-top: 10px;
+                }
+            }
+        }
+    }
+
+    section#primary {
+        color: #fff;
+        text-align:center;
+
+
+        @include desktop {
+            grid-area: primary;
+            text-align: left;
+            margin: 8em 4em 0em 0em; 
+        }
+
+        h1 {
+            font-size: 3em;
+            margin-top: 10px;
+
+            @include desktop {
+                width: 70%;
+                font-size: 2em;
+                line-height: 0.9em;
+            }
+        }
+
+        p {
+            font-size: 1.4em;
+        }
+
+        a {
+             color:color(primary-dark);
+             border-radius: $border;
+             text-decoration: none;
+             text-transform: uppercase;
+             font-weight: bold;
+             background-color: color(secondary);
+             display: block;
+             text-align: center;
+             margin: 50px auto 0 auto;
+             padding: $padding;
+
+             @include desktop {
+                 display: inline-block;
+                 padding: $padding $padding*4;
+             }
+        }
+    }
+}
